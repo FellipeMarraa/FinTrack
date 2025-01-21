@@ -12,6 +12,8 @@ public class User {
     private Long id;
     private String name;
     private String email;
+    private String picture; // URL da foto de perfil
+    private String authType; // Tipo de autenticação (ex.: "google", "local")
 
     // Getters and Setters
     public Long getId() {
@@ -36,5 +38,21 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getAuthType() {
+        return authType;
+    }
+
+    public void setAuthType(String authType) {
+        this.authType = authType;
     }
 }

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+<h1>Bem-vindo, <span th:text="${user.name}"></span>!</h1>
+<p>Email: <span th:text="${user.email}"></span></p>
+<p>Tipo de Autenticação: <span th:text="${user.authType}"></span></p>
+<img th:src="${user.picture}" alt="Foto do perfil" width="150">
+</body>
+</html>
