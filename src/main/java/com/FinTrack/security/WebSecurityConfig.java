@@ -23,6 +23,9 @@ public class WebSecurityConfig {
     @Autowired
     SecurityFilter securityFilter;
 
+    @Autowired
+    CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -36,16 +39,13 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST,"/auth/login", "/auth/register", "/oauth2/authorization/google").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/users").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                        .requestMatchers(HttpMethod.GET, "/", "/auth/**", "/oauth2/**").permitAll()  // Permite acesso à página de login
+                        .anyRequest().authenticated()  // Restringe todas as outras requisições à autenticação
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .successHandler(customAuthenticationSuccessHandler)  // Redireciona para o dashboard após login bem-sucedido
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
-//                .oauth2Login(oauth2 -> oauth2
-//                        .defaultSuccessUrl("/dashboard", true)
-//                        .loginPage("/login")
-//                        .permitAll()
-//                );
         return http.build();
     }
 

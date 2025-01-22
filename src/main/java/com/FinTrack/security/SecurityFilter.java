@@ -1,5 +1,6 @@
 package com.FinTrack.security;
 
+import com.FinTrack.model.user.Users;
 import com.FinTrack.repository.UsersRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -8,43 +9,43 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
 
     @Autowired
-    TokenService tokenService;
+    private TokenService tokenService;
 
     @Autowired
-    UsersRepository usersRepository;
+    private UsersRepository usersRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-       var token = this.recoverToken(request);
-       if (token != null) {
-           var login = tokenService.validateToken(token);
-           UserDetails userDetails = usersRepository.findByEmail(login);
+        var token = this.recoverToken(request);
+        if (token != null) {
+            var login = tokenService.validateToken(token);
+            var optionalUser = usersRepository.findByEmail(login);
 
-           var authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            if (optionalUser.isPresent()) {
+                Users user = optionalUser.get();
+                var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+        }
 
-           SecurityContextHolder.getContext().setAuthentication(authentication);
-       }
-
-       filterChain.doFilter(request, response);
+        filterChain.doFilter(request, response);
     }
 
     private String recoverToken(HttpServletRequest request) {
         var authHeader = request.getHeader("Authorization");
-
-        if (authHeader == null){
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             return null;
         }
-
         return authHeader.replace("Bearer ", "");
     }
 }

@@ -1,7 +1,10 @@
 package com.FinTrack.service;
 
+import com.FinTrack.model.user.Users;
 import com.FinTrack.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,41 +13,22 @@ public class UserService {
     @Autowired
     UsersRepository usersRepository;
 
-//    public Map<String, Object> getLoggedUserAttributes() {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        Object principal = authentication.getPrincipal();
-//
-//        if (principal instanceof OidcUser) {
-//            return ((OidcUser) principal).getAttributes();
-//        } else if (principal instanceof OAuth2User) {
-//            return ((OAuth2User) principal).getAttributes();
-//        }
-//
-//        throw new IllegalStateException("Usuário não está autenticado ou não é um OAuth2/OIDC usuário.");
-//    }
+    public Users createOrUpdateUser(Authentication authentication) {
+        if (authentication.getPrincipal() instanceof Users) {
+            return (Users) authentication.getPrincipal();
+        } else if (authentication.getPrincipal() instanceof DefaultOAuth2User) {
+            DefaultOAuth2User oauthUser = (DefaultOAuth2User) authentication.getPrincipal();
+            String email = (String) oauthUser.getAttributes().get("email");
+            String name = (String) oauthUser.getAttributes().get("name");
 
-//    public Users createOrUpdateUser(Authentication authentication) {
-//        Users user = new Users();
-//
-//        if (authentication.getPrincipal() instanceof OAuth2User) {
-//            OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
-//
-//            user.setName(oauth2User.getAttribute("name"));
-//            user.setEmail(oauth2User.getAttribute("email"));
-//            user.setPicture(oauth2User.getAttribute("picture"));
-//            user.setAuthType("google");
-//
-//        } else {
-//            user.setName(authentication.getName());
-//            user.setEmail(authentication.getName()); // Substitua pelo e-mail se disponível
-//            user.setAuthType("local");
-//        }
-//
-//        UserDetails existingUser = usersRepository.findByEmail(user.getEmail());
-//        if (existingUser.isPresent()) {
-//            user.setId(existingUser.get().getId()); // Preserva o ID
-//        }
-//
-//        return usersRepository.save(user);
-//    }
+            return usersRepository.findByEmail(email)
+                    .orElseGet(() -> {
+                        Users newUser = new Users();
+                        newUser.setEmail(email);
+                        newUser.setName(name);
+                        return usersRepository.save(newUser);
+                    });
+        }
+        throw new IllegalStateException("Usuário não autenticado corretamente.");
+    }
 }

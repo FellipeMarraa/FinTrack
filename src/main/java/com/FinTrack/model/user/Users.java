@@ -24,14 +24,14 @@ public class Users implements UserDetails {
     private String authType;
     private UserRole role;
 
-    public Users(String email, String password, UserRole role) {
+    public Users(String email, String password) {
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.role = UserRole.USER;
     }
 
     public Users() {
-
+        this.role = UserRole.USER;
     }
 
     public String getId() {
