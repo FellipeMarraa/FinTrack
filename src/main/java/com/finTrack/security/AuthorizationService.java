@@ -1,6 +1,6 @@
-package com.FinTrack.security;
+package com.finTrack.security;
 
-import com.FinTrack.repository.UsersRepository;
+import com.finTrack.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

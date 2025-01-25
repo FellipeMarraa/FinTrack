@@ -1,4 +1,4 @@
-package com.FinTrack.model.enums;
+package com.finTrack.model.enums;
 
 public enum UserRole {
 

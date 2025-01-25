@@ -1,11 +1,11 @@
-package com.FinTrack.controller;
+package com.finTrack.controller;
 
-import com.FinTrack.model.user.AuthenticationDTO;
-import com.FinTrack.model.user.LoginResponseDTO;
-import com.FinTrack.model.user.RegisterDTO;
-import com.FinTrack.model.user.Users;
-import com.FinTrack.repository.UsersRepository;
-import com.FinTrack.security.TokenService;
+import com.finTrack.model.user.AuthenticationDTO;
+import com.finTrack.model.user.LoginResponseDTO;
+import com.finTrack.model.user.RegisterDTO;
+import com.finTrack.model.user.Users;
+import com.finTrack.repository.UsersRepository;
+import com.finTrack.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

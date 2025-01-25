@@ -1,6 +1,6 @@
-package com.FinTrack.model.user;
+package com.finTrack.model.user;
 
-import com.FinTrack.model.enums.UserRole;
+import com.finTrack.model.enums.UserRole;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

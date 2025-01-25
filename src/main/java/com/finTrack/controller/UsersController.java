@@ -1,7 +1,7 @@
-package com.FinTrack.controller;
+package com.finTrack.controller;
 
-import com.FinTrack.model.user.Users;
-import com.FinTrack.repository.UsersRepository;
+import com.finTrack.model.user.Users;
+import com.finTrack.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

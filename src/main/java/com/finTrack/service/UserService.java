@@ -1,6 +1,6 @@
-package com.FinTrack.service;
+package com.finTrack.service;
 
-import com.FinTrack.repository.UsersRepository;
+import com.finTrack.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

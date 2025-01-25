@@ -1,12 +1,11 @@
-package com.FinTrack.controller;
+package com.finTrack.controller;
 
-import com.FinTrack.model.user.Users;
-import com.FinTrack.service.UserService;
+import com.finTrack.model.user.Users;
+import com.finTrack.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Map;

@@ -1,6 +1,6 @@
-package com.FinTrack.model.user;
+package com.finTrack.model.user;
 
-import com.FinTrack.model.enums.UserRole;
+import com.finTrack.model.enums.UserRole;
 
 public record RegisterDTO(String email, String password, UserRole role) {
 

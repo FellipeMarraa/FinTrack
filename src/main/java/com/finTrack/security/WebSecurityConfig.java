@@ -1,4 +1,4 @@
-package com.FinTrack.security;
+package com.finTrack.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

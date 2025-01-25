@@ -1,6 +1,6 @@
-package com.FinTrack.security;
+package com.finTrack.security;
 
-import com.FinTrack.repository.UsersRepository;
+import com.finTrack.repository.UsersRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
