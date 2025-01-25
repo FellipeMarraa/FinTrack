@@ -2,12 +2,6 @@ package com.FinTrack.model.user;
 
 import com.FinTrack.model.enums.UserRole;
 
-public record RegisterDTO(
-        String email,
-        String password,
-        UserRole role,
-        String name,
-        String picture,
-        String authType
-) {
+public record RegisterDTO(String email, String password, UserRole role) {
+
 }

@@ -2,12 +2,11 @@ package com.FinTrack.repository;
 
 import com.FinTrack.model.user.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.Optional;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UsersRepository extends JpaRepository<Users, String> {
 
-    Optional<Users> findByEmail(String email);
+    UserDetails findByEmail(String email);
 
 
 }
